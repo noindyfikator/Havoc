@@ -1674,7 +1674,10 @@ public class GameUI extends ConsoleHost implements Console.Directory, UI.Message
 			walkWithPathfinder = !walkWithPathfinder;
 			msg(walkWithPathfinder ? "Walking with pathfinder enabled" : "Walking with pathfinder disabled");
 		} else if (kb_buttonForTesting.key().match(ev)) {
-
+			Drawable d = map.player().getattr(Drawable.class);
+			Composite gc = (Composite)d;
+			System.out.println(gc.pposes);
+			getequipory().ava.chposes(gc.pposes, true);
 		} else if((key == 27) && (map != null) && !map.hasfocus) {
 			setfocus(map);
 		return(true);

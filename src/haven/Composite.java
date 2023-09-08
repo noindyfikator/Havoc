@@ -43,11 +43,12 @@ public class Composite extends Drawable implements EquipTarget {
     public int pseq;
     public List<MD> nmod;
     public List<ED> nequ;
-    private Collection<ResData> nposes = null, tposes = null;
+    public Collection<ResData> nposes = null, tposes = null;
     private boolean nposesold, retainequ = false;
     private float tptime;
     private WrapMode tpmode;
 	public HashSet<String> poses = new HashSet<>();
+	public Collection<ResData> pposes = null;
     
     public Composite(Gob gob, Indir<Resource> base) {
 	super(gob);
@@ -128,6 +129,7 @@ public class Composite extends Drawable implements EquipTarget {
 		poses.clear();
 		for (ResData pose : nposes) {
 			poses.add(pose.res.get().basename());
+			pposes = nposes;
 		}
 		gob.updPose(poses);
 

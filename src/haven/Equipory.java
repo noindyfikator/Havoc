@@ -116,7 +116,7 @@ public class Equipory extends Widget implements DTarget {
 		}
     }
 	Map<GItem, WItem[]> wmap = new HashMap<GItem, WItem[]>();
-    private final Avaview ava;
+    public final Avaview ava;
 	AttrBonusesWdg bonuses;
 	public WItem[] slots = new WItem[ecoords.length];
 	private static final int btnw = UI.scale(80);
