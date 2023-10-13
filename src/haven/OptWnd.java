@@ -1239,7 +1239,7 @@ public class OptWnd extends Window {
 			// ND: Might delete these eventually, commented them for now
 //			y = addbtn(cont, "Mute Non-Friendly", GameUI.kb_toggleMuteNonFriendly, y+26);
 //			y = addbtn(cont, "Toggle Walk Pathfinder", GameUI.kb_toggleWalkWithPathfinder, y);
-//			y = addbtn(cont, "Button For Testing", GameUI.kb_buttonForTesting, y);
+			y = addbtn(cont, "Button For Testing", GameUI.kb_buttonForTesting, y);
 
 
 			prev = adda(new PointBind(UI.scale(200)), scroll.pos("bl").adds(0, 10).x(scroll.sz.x / 2), 0.5, 0.0);

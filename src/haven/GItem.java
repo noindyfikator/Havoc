@@ -628,7 +628,7 @@ public class GItem extends AWidget implements ItemInfo.SpriteOwner, GSprite.Owne
 	private void dropIfRequired() {
 		Resource curs = ui.root.getcurs(Coord.z);
 		String name = this.resource().basename();
-		if(FarmingStatic.turnipDrop && name.equals("turnip")){
+		if(FarmingStatic.cropDrop && name.equals("turnip")){
 			this.wdgmsg("drop", Coord.z);
 		}
 		if (curs != null && curs.name.equals("gfx/hud/curs/mine")) {

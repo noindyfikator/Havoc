@@ -122,6 +122,9 @@ public class GameUI extends ConsoleHost implements Console.Directory, UI.Message
 	public TurnipBot turnipBot;
 	public Thread turnipThread;
 
+	public FarmerBot farmerBot;
+	public Thread farmerBotThread;
+
 	public TarKilnCleanerBot tarKilnCleanerBot;
 	public Thread tarKilnCleanerThread;
 
@@ -1753,6 +1756,19 @@ public class GameUI extends ConsoleHost implements Console.Directory, UI.Message
 			walkWithPathfinder = !walkWithPathfinder;
 			msg(walkWithPathfinder ? "Walking with pathfinder enabled" : "Walking with pathfinder disabled");
 		} else if (kb_buttonForTesting.key().match(ev)) {
+			if (farmerBot == null && farmerBotThread == null) {
+				farmerBot = new FarmerBot(this);
+				add(farmerBot, new Coord(sz.x/2 - farmerBot.sz.x/2, sz.y/2 - farmerBot.sz.y/2 - 200));
+				farmerBotThread = new Thread(farmerBot, "FarmerBot");
+				farmerBotThread.start();
+			} else {
+				if (farmerBot != null) {
+					farmerBot.stop();
+					farmerBot.reqdestroy();
+					farmerBot = null;
+					farmerBotThread = null;
+				}
+			}
 		} else if((key == 27) && (map != null) && !map.hasfocus) {
 			setfocus(map);
 		return(true);

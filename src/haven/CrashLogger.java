@@ -36,7 +36,8 @@ public class CrashLogger implements Thread.UncaughtExceptionHandler {
                     "RefillWaterContainers",
                     "Reaggro",
                     "TarKilnEmptierBot",
-                    "TurnipBot"
+                    "TurnipBot",
+                    "FarmerBot"
             )
     );
 

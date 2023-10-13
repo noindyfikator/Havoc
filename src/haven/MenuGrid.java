@@ -652,6 +652,20 @@ public class MenuGrid extends Widget implements KeyBinding.Bindable {
 						gui.turnipThread = null;
 					}
 				}
+			} else if (ad[2].equals("FarmerBot")) {
+				if (gui.farmerBot == null && gui.farmerBotThread == null) {
+					gui.farmerBot = new FarmerBot(gui);
+					gui.add(gui.farmerBot, new Coord(gui.sz.x/2 - gui.farmerBot.sz.x/2, gui.sz.y/2 - gui.farmerBot.sz.y/2 - 200));
+					gui.farmerBotThread = new Thread(gui.farmerBot, "FarmerBot");
+					gui.farmerBotThread.start();
+				} else {
+					if (gui.farmerBot != null) {
+						gui.farmerBot.stop();
+						gui.farmerBot.reqdestroy();
+						gui.farmerBot = null;
+						gui.farmerBotThread = null;
+					}
+				}
 			} else if (ad[2].equals("TarKilnEmptierBot")) {
 				if (gui.tarKilnCleanerBot == null && gui.tarKilnCleanerThread == null) {
 					gui.tarKilnCleanerBot = new TarKilnCleanerBot(gui);
