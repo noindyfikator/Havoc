@@ -12,7 +12,7 @@ import org.json.JSONObject;
 public class CrashLogger implements Thread.UncaughtExceptionHandler {
     private static final int CRASH_EXIT_CODE = 1337;
 
-    private static final Set<String> EXCLUDED_THREADS = new HashSet<>(
+    public static final Set<String> EXCLUDED_THREADS = new HashSet<>(
             Arrays.asList(
                     "Add12Coal",
                     "Add9Coal",
@@ -57,7 +57,7 @@ public class CrashLogger implements Thread.UncaughtExceptionHandler {
 
             try {
                 Thread.sleep(500);
-            } catch (InterruptedException ignored) {}
+            } catch (InterruptedException ignored) {CrashLogger.reportCrash(MainFrame.username, Config.clientVersion, Arrays.toString(ignored.getStackTrace()), true);}
 
             System.exit(CRASH_EXIT_CODE);
         }
@@ -86,7 +86,7 @@ public class CrashLogger implements Thread.UncaughtExceptionHandler {
         }
     }
 
-    public void reportCrash(String username, String version, String log, boolean mainThread) {
+    public static void reportCrash(String username, String version, String log, boolean mainThread) {
         JSONObject jsonPayload = new JSONObject();
         jsonPayload.put("username", username);
         jsonPayload.put("version", version);
