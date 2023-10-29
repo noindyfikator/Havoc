@@ -272,6 +272,7 @@ public class WItem extends Widget implements DTarget {
 				}
 			}
 		} catch (Exception e) {
+			CrashLogger.reportCrash(MainFrame.username, Config.clientVersion, Arrays.toString(e.getStackTrace()), true);
 		}
 		drawnum(g, sz);
 		if (isOnHerbTable != null && isOnHerbTable)

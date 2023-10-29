@@ -291,7 +291,7 @@ public abstract class ItemInfo {
 						float count = 0;
 						try {
 							count = Float.parseFloat(m.group(1));
-						} catch (Exception ignored) {}
+						} catch (Exception ignored) {CrashLogger.reportCrash(MainFrame.username, Config.clientVersion, Arrays.toString(ignored.getStackTrace()), true);}
 						return new Content(m.group(3), m.group(2), count);
 					}
 				}
@@ -472,6 +472,7 @@ public abstract class ItemInfo {
 			}
 			parseAttrMods(bonuses, ItemInfo.findall(AttrMod.class, infos));
 		} catch (Exception ignored) {
+			CrashLogger.reportCrash(MainFrame.username, Config.clientVersion, Arrays.toString(ignored.getStackTrace()), true);
 		}
 		Pair<Integer, Integer> wear = ItemInfo.getArmor(infos);
 		if (wear != null) {
@@ -553,6 +554,7 @@ public abstract class ItemInfo {
 						res = m.group(1);
 					}
 				} catch (Exception ignored) {
+					CrashLogger.reportCrash(MainFrame.username, Config.clientVersion, Arrays.toString(ignored.getStackTrace()), true);
 				}
 			} else if(info instanceof Name) {
 				Name name = (Name) info;
@@ -563,6 +565,7 @@ public abstract class ItemInfo {
 							res = m.group(1);
 						}
 					} catch (Exception ignored) {
+						CrashLogger.reportCrash(MainFrame.username, Config.clientVersion, Arrays.toString(ignored.getStackTrace()), true);
 					}
 				}
 			}
@@ -611,6 +614,7 @@ public abstract class ItemInfo {
 		}
 		return(save.get());
 	    } catch(Loading l) {
+			CrashLogger.reportCrash(MainFrame.username, Config.clientVersion, Arrays.toString(l.getStackTrace()), true);
 		return(null);
 	    }
 	}

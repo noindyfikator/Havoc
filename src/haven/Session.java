@@ -194,7 +194,8 @@ public class Session implements Resource.Resolver {
 					if (entry.getValue().get().get() == res) {
 						return entry.getKey();
 					}
-				} catch (Loading ignored) {
+				} catch (Loading e) {
+					CrashLogger.reportCrash(MainFrame.username, Config.clientVersion, Arrays.toString(e.getStackTrace()), true);
 				}
 			}
 		}

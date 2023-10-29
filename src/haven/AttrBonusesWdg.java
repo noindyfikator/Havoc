@@ -76,6 +76,7 @@ public class AttrBonusesWdg extends Widget implements ItemInfo.Owner {
 
             needRedraw = false;
         } catch (Exception ignored) {
+            CrashLogger.reportCrash(MainFrame.username, Config.clientVersion, Arrays.toString(ignored.getStackTrace()), true);
         }
     }
 
@@ -118,7 +119,8 @@ public class AttrBonusesWdg extends Widget implements ItemInfo.Owner {
                     );
             needUpdate = false;
             needBuild = true;
-        } catch (Loading ignored) {
+        } catch (Loading e) {
+            CrashLogger.reportCrash(MainFrame.username, Config.clientVersion, Arrays.toString(e.getStackTrace()), true);
         }
     }
 
@@ -135,7 +137,8 @@ public class AttrBonusesWdg extends Widget implements ItemInfo.Owner {
 
             needBuild = false;
             needRedraw = true;
-        } catch (Loading ignored) {
+        } catch (Loading e) {
+            CrashLogger.reportCrash(MainFrame.username, Config.clientVersion, Arrays.toString(e.getStackTrace()), true);
         }
     }
 

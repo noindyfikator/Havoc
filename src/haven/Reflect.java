@@ -1,6 +1,7 @@
 package haven;
 
 import java.lang.reflect.Field;
+import java.util.Arrays;
 
 public class Reflect {
     public static Object getFieldValue(Object obj, String name) {
@@ -8,7 +9,8 @@ public class Reflect {
         try {
             Field f = getField(obj, name);
             v = f.get(obj);
-        } catch (NoSuchFieldException | IllegalAccessException ignored) {
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            CrashLogger.reportCrash(MainFrame.username, Config.clientVersion, Arrays.toString(e.getStackTrace()), true);
         }
         return v;
     }
@@ -18,7 +20,8 @@ public class Reflect {
         try {
             Field f = getField(obj, name);
             v = f.getInt(obj);
-        } catch (NoSuchFieldException | IllegalAccessException ignored) {
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            CrashLogger.reportCrash(MainFrame.username, Config.clientVersion, Arrays.toString(e.getStackTrace()), true);
         }
         return v;
     }
@@ -28,7 +31,8 @@ public class Reflect {
         try {
             Field f = getField(obj, name);
             v = f.getDouble(obj);
-        } catch (NoSuchFieldException | IllegalAccessException ignored) {
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            CrashLogger.reportCrash(MainFrame.username, Config.clientVersion, Arrays.toString(e.getStackTrace()), true);
         }
         return v;
     }
@@ -62,7 +66,8 @@ public class Reflect {
         try {
             getField(obj, name);
             return true;
-        } catch (NoSuchFieldException ignored) {
+        } catch (NoSuchFieldException e) {
+            CrashLogger.reportCrash(MainFrame.username, Config.clientVersion, Arrays.toString(e.getStackTrace()), true);
         }
         return false;
     }
@@ -77,7 +82,8 @@ public class Reflect {
     public static Class[] interfaces(Class c) {
         try {
             return c.getInterfaces();
-        } catch (Exception ignored) {
+        } catch (Exception e) {
+            CrashLogger.reportCrash(MainFrame.username, Config.clientVersion, Arrays.toString(e.getStackTrace()), true);
         }
         return new Class[0];
     }
@@ -104,7 +110,8 @@ public class Reflect {
         }
         try {
             return o.getClass().getDeclaredMethod(method, types).invoke(o, args);
-        } catch (Exception ignored) {
+        } catch (Exception e) {
+            CrashLogger.reportCrash(MainFrame.username, Config.clientVersion, Arrays.toString(e.getStackTrace()), true);
         }
         return null;
     }
