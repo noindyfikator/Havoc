@@ -291,7 +291,7 @@ public abstract class ItemInfo {
 						float count = 0;
 						try {
 							count = Float.parseFloat(m.group(1));
-						} catch (Exception ignored) {CrashLogger.reportCrash(MainFrame.username, Config.clientVersion, Arrays.toString(ignored.getStackTrace()), true);}
+						} catch (Exception e) {CrashLogger.logCrash(Arrays.toString(e.getStackTrace()));}
 						return new Content(m.group(3), m.group(2), count);
 					}
 				}
@@ -471,8 +471,8 @@ public abstract class ItemInfo {
 				parseAttrMods(bonuses, slots);
 			}
 			parseAttrMods(bonuses, ItemInfo.findall(AttrMod.class, infos));
-		} catch (Exception ignored) {
-			CrashLogger.reportCrash(MainFrame.username, Config.clientVersion, Arrays.toString(ignored.getStackTrace()), true);
+		} catch (Exception e) {
+			CrashLogger.logCrash(Arrays.toString(e.getStackTrace()));
 		}
 		Pair<Integer, Integer> wear = ItemInfo.getArmor(infos);
 		if (wear != null) {
@@ -553,8 +553,8 @@ public abstract class ItemInfo {
 					if(m.find()) {
 						res = m.group(1);
 					}
-				} catch (Exception ignored) {
-					CrashLogger.reportCrash(MainFrame.username, Config.clientVersion, Arrays.toString(ignored.getStackTrace()), true);
+				} catch (Exception e) {
+					CrashLogger.logCrash(Arrays.toString(e.getStackTrace()));
 				}
 			} else if(info instanceof Name) {
 				Name name = (Name) info;
@@ -564,8 +564,8 @@ public abstract class ItemInfo {
 						if(m.find()) {
 							res = m.group(1);
 						}
-					} catch (Exception ignored) {
-						CrashLogger.reportCrash(MainFrame.username, Config.clientVersion, Arrays.toString(ignored.getStackTrace()), true);
+					} catch (Exception e) {
+						CrashLogger.logCrash(Arrays.toString(e.getStackTrace()));
 					}
 				}
 			}
@@ -613,8 +613,8 @@ public abstract class ItemInfo {
 		    forinfo = info;
 		}
 		return(save.get());
-	    } catch(Loading l) {
-			CrashLogger.reportCrash(MainFrame.username, Config.clientVersion, Arrays.toString(l.getStackTrace()), true);
+	    } catch(Loading e) {
+			CrashLogger.logCrash(Arrays.toString(e.getStackTrace()));
 		return(null);
 	    }
 	}

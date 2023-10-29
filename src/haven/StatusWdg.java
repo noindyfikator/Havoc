@@ -50,7 +50,7 @@ public class StatusWdg extends Widget {
         try (BufferedReader standardOutput = new BufferedReader(new InputStreamReader(new ProcessBuilder(command).start().getInputStream()))) {
             lines.addAll(standardOutput.lines().collect(Collectors.toList()));
         } catch (IOException e) {
-            CrashLogger.reportCrash(MainFrame.username, Config.clientVersion, Arrays.toString(e.getStackTrace()), true);
+            CrashLogger.logCrash(Arrays.toString(e.getStackTrace()));
         }
 
         StringBuilder output = new StringBuilder();
@@ -83,7 +83,7 @@ public class StatusWdg extends Widget {
         try {
             updatepingtime();
             updatePlayers();
-        } catch (Exception e) {CrashLogger.reportCrash(MainFrame.username, Config.clientVersion, Arrays.toString(e.getStackTrace()), true);}
+        } catch (Exception e) {CrashLogger.logCrash(Arrays.toString(e.getStackTrace()));}
     }
 
     @Override

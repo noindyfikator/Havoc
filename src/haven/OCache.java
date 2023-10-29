@@ -132,7 +132,7 @@ public class OCache implements Iterable<Gob> {
 				}
 			}
 		} catch (Exception e) {
-			CrashLogger.reportCrash(MainFrame.username, Config.clientVersion, Arrays.toString(e.getStackTrace()), true);
+			CrashLogger.logCrash(Arrays.toString(e.getStackTrace()));
 		}
 	}
 
@@ -433,7 +433,7 @@ public class OCache implements Iterable<Gob> {
 					gob.init(false);
 				}
 			} catch (Exception e) {
-				CrashLogger.reportCrash(MainFrame.username, Config.clientVersion, Arrays.toString(e.getStackTrace()), true);
+				CrashLogger.logCrash(Arrays.toString(e.getStackTrace()));
 //				System.out.println("Exception initializing gob " + gob.id);
 //				e.printStackTrace();
 			}

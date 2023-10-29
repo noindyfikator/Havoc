@@ -192,8 +192,8 @@ public class FightWnd extends Widget {
 		try {
 		    set(loading.get());
 		    loading = null;
-		} catch(Loading l) {
-			CrashLogger.reportCrash(MainFrame.username, Config.clientVersion, Arrays.toString(l.getStackTrace()), true);
+		} catch(Loading e) {
+			CrashLogger.logCrash(Arrays.toString(e.getStackTrace()));
 		}
 	    }
 	    super.tick(dt);
@@ -494,7 +494,7 @@ public class FightWnd extends Widget {
 						g.image(add[addp == i ? 1 : 0], c.add(addOffX, subOffY));
 					}
 				} catch (Loading e) {
-					CrashLogger.reportCrash(MainFrame.username, Config.clientVersion, Arrays.toString(e.getStackTrace()), true);
+					CrashLogger.logCrash(Arrays.toString(e.getStackTrace()));
 				}
 				g.chcolor(255, 255, 255, 255);
 				String keybindString = Fightsess.kb_acts[i].key().name();
@@ -513,7 +513,7 @@ public class FightWnd extends Widget {
 						}
 					});
 				} catch (Loading e) {
-					CrashLogger.reportCrash(MainFrame.username, Config.clientVersion, Arrays.toString(e.getStackTrace()), true);
+					CrashLogger.logCrash(Arrays.toString(e.getStackTrace()));
 				}
 			}
 		}
@@ -944,7 +944,7 @@ public class FightWnd extends Widget {
 				needFilter = false;
 			}
 		} catch (Resource.Loading e) {
-			CrashLogger.reportCrash(MainFrame.username, Config.clientVersion, Arrays.toString(e.getStackTrace()), true);
+			CrashLogger.logCrash(Arrays.toString(e.getStackTrace()));
 		}
 	}
 

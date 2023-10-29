@@ -172,8 +172,8 @@ public class JSONObject {
         for (int i = 0; i < names.length; i += 1) {
             try {
                 this.putOnce(names[i], jo.opt(names[i]));
-            } catch (Exception ignore) {
-                CrashLogger.reportCrash(MainFrame.username, Config.clientVersion, Arrays.toString(ignore.getStackTrace()), true);
+            } catch (Exception e) {
+                CrashLogger.logCrash(Arrays.toString(e.getStackTrace()));
             }
         }
     }
@@ -302,8 +302,8 @@ public class JSONObject {
             String name = names[i];
             try {
                 this.putOpt(name, c.getField(name).get(object));
-            } catch (Exception ignore) {
-                CrashLogger.reportCrash(MainFrame.username, Config.clientVersion, Arrays.toString(ignore.getStackTrace()), true);
+            } catch (Exception e) {
+                CrashLogger.logCrash(Arrays.toString(e.getStackTrace()));
             }
         }
     }
