@@ -50,7 +50,7 @@ public class MainFrame extends java.awt.Frame implements Console.Directory, AWTE
     static {
 	try {
 	    javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager.getSystemLookAndFeelClassName());
-	} catch(Exception e) {CrashLogger.reportCrash(MainFrame.username, Config.clientVersion, Arrays.toString(e.getStackTrace()), true);}
+	} catch(Exception e) {CrashLogger.logCrash(Arrays.toString(e.getStackTrace()));}
     }
 
 	static {
@@ -357,7 +357,7 @@ public class MainFrame extends java.awt.Frame implements Console.Directory, AWTE
 		ui.interrupt();
 		try {
 		    ui.join(5000);
-		} catch(InterruptedException e) {CrashLogger.reportCrash(MainFrame.username, Config.clientVersion, Arrays.toString(e.getStackTrace()), true);}
+		} catch(InterruptedException e) {CrashLogger.logCrash(Arrays.toString(e.getStackTrace()));}
 		if(ui.isAlive())
 		    Warning.warn("ui thread failed to terminate");
 		dispose();

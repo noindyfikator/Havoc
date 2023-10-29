@@ -42,7 +42,7 @@ public class ExpWnd extends Window {
 		cap = (tt == null)?null:(tt.t);
 		text = exp.get().layer(Resource.pagina).text;
 	    } catch(Loading e) {
-			CrashLogger.reportCrash(MainFrame.username, Config.clientVersion, Arrays.toString(e.getStackTrace()), true);
+			CrashLogger.logCrash(Arrays.toString(e.getStackTrace()));
 		return;
 	    }
 	    if(cap != null)

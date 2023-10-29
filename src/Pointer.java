@@ -80,7 +80,7 @@ public class Pointer extends Widget {
 				gOut.aimage(Text.renderstroked(dist + "", Color.WHITE, Color.BLACK, Text.num12boldFnd).tex(), bcc, 0.5, 0.5);
 			}
 			catch (Loading e) {
-				CrashLogger.reportCrash(MainFrame.username, Config.clientVersion, Arrays.toString(e.getStackTrace()), true);
+				CrashLogger.logCrash(Arrays.toString(e.getStackTrace()));
 				//Ignore it
 			}
 		}
@@ -120,7 +120,7 @@ public class Pointer extends Widget {
 				g.aimage(licon, bcc, 0.5, 0.5);
 				g.aimage(Text.renderstroked(dist + "", Color.WHITE, Color.BLACK, Text.num12boldFnd).tex(), bcc, 0.5, 0.5);
 			} catch(Loading e) {
-				CrashLogger.reportCrash(MainFrame.username, Config.clientVersion, Arrays.toString(e.getStackTrace()), true);
+				CrashLogger.logCrash(Arrays.toString(e.getStackTrace()));
 			}
 		}
 		this.lc = add.add(norm);
@@ -208,8 +208,8 @@ public class Pointer extends Widget {
 						double dx = targetCoord.x - playerCoord.x;
 						double dy = playerCoord.y - targetCoord.y;
 						PointerTriangulation.pointerAngle = Math.atan2(dy, dx);
-					} catch (Exception ignored) {
-						CrashLogger.reportCrash(MainFrame.username, Config.clientVersion, Arrays.toString(ignored.getStackTrace()), true);
+					} catch (Exception e) {
+						CrashLogger.logCrash(Arrays.toString(e.getStackTrace()));
 					}
 					if (tt != null && tt.tex() != null)
 						tt.tex().dispose();
@@ -220,7 +220,7 @@ public class Pointer extends Widget {
 					}
 
 				} catch (NullPointerException e) {
-					CrashLogger.reportCrash(MainFrame.username, Config.clientVersion, Arrays.toString(e.getStackTrace()), true);
+					CrashLogger.logCrash(Arrays.toString(e.getStackTrace()));
 				}
 			}
 			return (tooltip);

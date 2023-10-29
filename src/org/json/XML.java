@@ -332,8 +332,8 @@ public class XML {
                 if (value.toString().equals(string)) {
                     return value;
                 }
-            }  catch (Exception ignoreAlso) {
-                CrashLogger.reportCrash(MainFrame.username, Config.clientVersion, Arrays.toString(ignoreAlso.getStackTrace()), true);
+            }  catch (Exception e) {
+                CrashLogger.logCrash(Arrays.toString(e.getStackTrace()));
             }
         }
         return string;

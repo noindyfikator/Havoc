@@ -29,7 +29,7 @@ public interface ObjectData<T> {
 		    f.setAccessible(true);
 		    fields.add(f);
 		} catch(Exception e) {
-			CrashLogger.reportCrash(MainFrame.username, Config.clientVersion, Arrays.toString(e.getStackTrace()), true);
+			CrashLogger.logCrash(Arrays.toString(e.getStackTrace()));
 		}
 	    }
 	}
@@ -39,7 +39,7 @@ public interface ObjectData<T> {
 		    try {
 			buf.put(Symbol.get("java/field", f.getName()), f.get(obj));
 		    } catch(Exception e) {
-				CrashLogger.reportCrash(MainFrame.username, Config.clientVersion, Arrays.toString(e.getStackTrace()), true);
+				CrashLogger.logCrash(Arrays.toString(e.getStackTrace()));
 		    }
 		}
 	    });
