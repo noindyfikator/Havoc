@@ -33,8 +33,10 @@ import haven.res.ui.tt.q.quality.Quality;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.lang.reflect.Field;
 import java.util.List;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class GItem extends AWidget implements ItemInfo.SpriteOwner, GSprite.Owner {
     public Indir<Resource> res;
@@ -191,27 +193,29 @@ public class GItem extends AWidget implements ItemInfo.SpriteOwner, GSprite.Owne
 	if(spr != null)
 	    spr.tick(dt);
 	updcontinfo();
+	updateQualityForStack();
 	if(!hoverset)
 	    hovering = null;
 	hoverset = false;
     }
 
-    public List<ItemInfo> info() {
-	if(this.info == null) {
-	    List<ItemInfo> info = ItemInfo.buildinfo(this, rawinfo);
-	    addcontinfo(info);
-	    Resource.Pagina pg = res.get().layer(Resource.pagina);
-	    if(pg != null)
-		info.add(new ItemInfo.Pagina(this, pg.text));
-	    this.info = info;
-		try {
-			ui.gui.recipeCollector.addFood(info, getres().name);
-		} catch (NullPointerException ex){
-			System.out.println("Problem with adding new food to cookbook.");
+	public List<ItemInfo> info() {
+		if (this.info == null) {
+			List<ItemInfo> info = ItemInfo.buildinfo(this, rawinfo);
+			addcontinfo(info);
+			Resource.Pagina pg = res.get().layer(Resource.pagina);
+			if (pg != null)
+				info.add(new ItemInfo.Pagina(this, pg.text));
+			this.info = info;
+			try {
+				ui.gui.recipeCollector.addFood(info, getres().name);
+			} catch (NullPointerException ex) {
+				System.out.println("Problem with adding new food to cookbook.");
+			}
 		}
+		needUpdateQuality.set(true);
+		return (this.info);
 	}
-	return(this.info);
-    }
 
     public Resource resource() {
 	return(res.get());
@@ -658,6 +662,53 @@ public class GItem extends AWidget implements ItemInfo.SpriteOwner, GSprite.Owne
 			return Integer.parseInt(textEntry.text());
 		} catch (NumberFormatException ex){
 			return 0;
+		}
+	}
+
+	private final AtomicBoolean needUpdateQuality = new AtomicBoolean();
+
+	private void updateQualityForStack(){
+		if(needUpdateQuality.get()) {
+			needUpdateQuality.set(false);
+			try {
+				GItem actualItem = this;
+				List<ItemInfo> info = actualItem.info();
+				if(!info.isEmpty()) {
+					Widget stack = actualItem.contents;
+					if (stack != null) {
+						List<WItem> ret = new ArrayList<>();
+						if (stack.getClass().toString().contains("ItemStack")) {
+							try {
+								Field fwmap = stack.getClass().getField("wmap");
+								Map<GItem, WItem> wmap = (Map<GItem, WItem>) fwmap.get(stack);
+								ret.addAll(wmap.values());
+							} catch (NoSuchFieldException | IllegalAccessException ignored) {
+							}
+						}
+						if (!ret.isEmpty()) {
+							int amount = 0;
+							double sum = 0;
+							for (WItem w : ret) {
+								QBuff q = w.item.quality();
+								if (q != null) {
+									amount++;
+									sum += q.q;
+								}
+							}
+							if (amount > 0) {
+								Quality q = ItemInfo.find(Quality.class, info);
+								if (q == null) {
+									info.add(new Quality(actualItem, sum / amount));
+								} else {
+									q.q = sum / amount;
+								}
+							}
+						}
+					}
+				}
+			} catch (Throwable e) {
+				needUpdateQuality.set(true);
+			}
 		}
 	}
 }
