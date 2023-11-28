@@ -99,7 +99,12 @@ public class OCache implements Iterable<Gob> {
 			if (ob.getres() != null && ob.getres().name.startsWith("gfx/terobjs/plants") && !ob.getres().name.endsWith("trellis")) {
 				return;
 			}
+
+			if (ob.getres() != null && (ob.getres().name.contains("items/soil") || ob.getres().name.contains("earthworm"))) {
+				return;
+			}
 		}
+
 		synchronized (ob) {
 			Collection<ChangeCallback> cbs;
 			synchronized (this) {

@@ -42,7 +42,7 @@ public class UI {
     public RootWidget root;
     private final LinkedList<Grab> keygrab = new LinkedList<Grab>(), mousegrab = new LinkedList<Grab>();
     private final Map<Integer, Widget> widgets = new TreeMap<Integer, Widget>();
-    private final Map<Widget, Integer> rwidgets = new HashMap<Widget, Integer>();
+	public final Map<Widget, Integer> rwidgets = new HashMap<Widget, Integer>();
     Environment env;
     public Receiver rcvr;
     public Coord mc = Coord.z, lcc = Coord.z;

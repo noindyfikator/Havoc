@@ -128,6 +128,10 @@ public class GameUI extends ConsoleHost implements Console.Directory, UI.Message
 	public FishingBot fishingBot;
 	public Thread fishingThread;
 
+	public SoilDropper soilDropper;
+	public Thread soilDropperThread;
+	public static boolean dropAllSoil = false;
+
 	public TrellisPlantDestroyerBot trellisPlantDestroyerBot;
 	public Thread trellisPlantDestroyerBotThread;
 	public OreCounter oreCounter;
@@ -1786,7 +1790,19 @@ public class GameUI extends ConsoleHost implements Console.Directory, UI.Message
 		} else if (kb_instantLogout.key().match(ev)) {
 			ui.sess.close();
 		} else if (kb_buttonForTesting.key().match(ev)) {
-
+			if (soilDropper == null && soilDropperThread == null) {
+				soilDropper = new SoilDropper(this);
+				add(soilDropper, new Coord(sz.x/2 - soilDropper.sz.x/2, sz.y/2 - soilDropper.sz.y/2 - 200));
+				soilDropperThread = new Thread(soilDropper, "SoilDropper");
+				soilDropperThread.start();
+			} else {
+				if (soilDropper != null) {
+					soilDropperThread.stop();
+					soilDropper.reqdestroy();
+					soilDropper = null;
+					soilDropperThread = null;
+				}
+			}
 		} else if((key == 27) && (map != null) && !map.hasfocus) {
 			setfocus(map);
 		return(true);

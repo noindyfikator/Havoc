@@ -37,7 +37,8 @@ public class ISBox extends Widget implements DTarget {
     private Indir<Resource> res;
     private Text label;
     private Value value;
-    private Button take;
+    public Integer count;
+    public Button take;
     static {
         lf = new Text.Foundry(Text.fraktur, 22, java.awt.Color.WHITE);
         lf.aa = true;
@@ -164,8 +165,10 @@ public class ISBox extends Widget implements DTarget {
     public void uimsg(String msg, Object... args) {
         if(msg == "chnum") {
             setlabel((Integer)args[0], (Integer)args[1], (Integer)args[2]);
+            count = (Integer) args[0];
         } else {
             super.uimsg(msg, args);
+            count = (Integer) args[0];
         }
     }
 

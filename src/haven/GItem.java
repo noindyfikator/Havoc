@@ -57,6 +57,7 @@ public class GItem extends AWidget implements ItemInfo.SpriteOwner, GSprite.Owne
 	private QBuff quality;
 	private boolean postProcessed = false;
 
+
     @RName("item")
     public static class $_ implements Factory {
 	public Widget create(UI ui, Object[] args) {
@@ -636,6 +637,11 @@ public class GItem extends AWidget implements ItemInfo.SpriteOwner, GSprite.Owne
 		if(FarmingStatic.turnipDrop && name.equals("turnip")){
 			this.wdgmsg("drop", Coord.z);
 		}
+
+		if(GameUI.dropAllSoil && (resname().contains("earthworm") || resname().contains("soil"))){
+			this.wdgmsg("drop", Coord.z);
+		}
+
 		if (curs != null && curs.name.equals("gfx/hud/curs/mine")) {
 			double quality = 0.0;
 			if(this.rawinfo != null){
