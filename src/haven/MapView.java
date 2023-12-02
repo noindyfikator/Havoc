@@ -2012,14 +2012,14 @@ public class MapView extends PView implements DTarget, Console.Directory, PFList
     }
 
     public static interface PlobAdjust {
-	public void adjust(Plob plob, Coord pc, Coord2d mc, int modflags);
+	public void adjust(Plob plob, Coord pc, Coord2d mc, GameUI gui ,int modflags);
 	public boolean rotate(Plob plob, int amount, int modflags);
     }
 
     public static class StdPlace implements PlobAdjust {
 	boolean freerot = false;
 
-	public void adjust(Plob plob, Coord pc, Coord2d mc, int modflags) {
+	public void adjust(Plob plob, Coord pc, Coord2d mc, GameUI gui , int modflags) {
 	    Coord2d nc;
 	    if((modflags & UI.MOD_CTRL) == 0)
 		nc = mc.floor(tilesz).mul(tilesz).add(tilesz.div(2));
@@ -2028,10 +2028,23 @@ public class MapView extends PView implements DTarget, Console.Directory, PFList
 	    else
 		nc = mc;
 	    Gob pl = plob.mv().player();
-	    if((pl != null) && !freerot)
+	    if((pl != null) && !freerot) {
 		plob.move(nc, Math.round(plob.rc.angle(pl.rc) / (Math.PI / 2)) * (Math.PI / 2));
-	    else
-		plob.move(nc);
+		}
+	    else {
+			boolean check = true;
+			synchronized (gui.ui.sess.glob.oc){
+				for(Gob gob : gui.ui.sess.glob.oc){
+					if(gob.rc.dist(nc) < 9){
+						check = false;
+						break;
+					}
+				}
+			}
+			if(check){
+				plob.move(nc);
+			}
+		}
 	}
 
 	public boolean rotate(Plob plob, int amount, int modflags) {
@@ -2089,7 +2102,7 @@ public class MapView extends PView implements DTarget, Console.Directory, PFList
 	    }
 	    
 	    public void hit(Coord pc, Coord2d mc) {
-		adjust.adjust(Plob.this, pc, mc, modflags);
+		adjust.adjust(Plob.this, pc, mc, ui.gui, modflags);
 		lastmc = pc;
 	    }
 	}
