@@ -1,3 +1,11 @@
+# HAVOC
+## Haven & hearth custom client
+
+### Languages Used
+- JAVA, json
+-------------
+
+### Project Description
 ***WE'RE NO LONGER UPDATING THIS CLIENT***
 
 Havoc repo: https://github.com/Nightdawg/Havoc.git
@@ -17,3 +25,21 @@ Note: Loftar usually says "I have already pushed all the changes 2 weeks ahead o
 Idk if it's schizophrenia or whatever, but just so you know.
 
 Anyway good luck have fun
+
+---
+## Installation
+### Windows
+
+use the .bat file, make sure you have java up to date
+
+### Debian / Ubuntu installation
+
+Open a terminal and copy paste this lign.
+```properties
+sudo apt update && sudo apt install default-jre -y && mkdir -p ~/Game/Haven/ && cd ~/Game/Haven/ && wget https://github.com/Nightdawg/Havoc/releases/latest/download/Havoc.v1.1.0.zip -O Havoc.zip && unzip ./Havoc.zip && rm -v ./Havoc.zip && chmod -R 775 ./ && exit
+```
+**Make a launcher with icon**
+```properties
+cp ~/Game/Haven/Havoc/Haven-havoc.desktop ~/.local/share/applications/
+```
+It *should* be in application menu => Game
